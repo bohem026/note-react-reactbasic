@@ -1,5 +1,5 @@
 //Myheader 컴포넌트
-function Myheader() {
+function Myheader({ title, desc }) {
   return (
     <header>
       <h1 className="logo">프론트엔드 개발자</h1>
