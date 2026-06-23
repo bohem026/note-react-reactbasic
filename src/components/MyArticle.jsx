@@ -1,4 +1,6 @@
 function MyArticle({ title, desc }) {
+  console.log('MyArticle render');
+  
   return (
     <section>
       <article>
