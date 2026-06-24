@@ -1,10 +1,11 @@
-function MyArticle({ title, desc, onChangeMode, onDelete }) {
+function MyArticle({ title, desc, diff = -1, onChangeMode, onDelete }) {
   console.log('MyArticle render');
   return (
     <section>
       <article>
         <h2>{title}</h2>
         <p>{desc}</p>
+        {diff !== -1 ? <p>{diff}</p> : <></>}
       </article>
       <button
         onClick={() => {

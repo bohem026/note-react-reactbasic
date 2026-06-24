@@ -1,14 +1,18 @@
 import { useState } from 'react';
 
-function UpdateArticle({ title, desc, onSubmit }) {
+function UpdateArticle({ title, desc, diff, onSubmit }) {
   console.log('UpdateArticle render');
   const [newTitle, setNewTitle] = useState(title);
   const [newDesc, setNewDesc] = useState(desc);
+  const [newDiff, setNewDiff] = useState(diff);
   const handleTitleChange = (e) => {
     setNewTitle(e.target.value);
   };
   const handleDescChange = (e) => {
     setNewDesc(e.target.value);
+  };
+  const handleDiffChange = (e) => {
+    setNewDiff(e.target.value);
   };
   return (
     <>
@@ -17,7 +21,7 @@ function UpdateArticle({ title, desc, onSubmit }) {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(newTitle, newDesc);
+          onSubmit(newTitle, newDesc, newDiff);
         }}
       >
         <div>
@@ -27,6 +31,10 @@ function UpdateArticle({ title, desc, onSubmit }) {
         <div>
           <label htmlFor="desc">desc</label>
           <textarea name="desc" id="desc" value={newDesc} onChange={handleDescChange}></textarea>
+        </div>
+        <div>
+          <label htmlFor="diff">diff</label>
+          <input type="number" name="diff" id="diff" value={newDiff} onChange={handleDiffChange} />
         </div>
         <button>Submit</button>
       </form>
