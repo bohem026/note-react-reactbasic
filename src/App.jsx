@@ -20,6 +20,7 @@ function App() {
     { id: 2, title: '재사용이 가능한 UI 개발', desc: '컴포넌트 기반으로 동일한 UI를 효율적으로 재사용 가능' },
     { id: 3, title: '애니메이션 구현', desc: '상태 변화에 따른 자연스럽고 동적인 화면 효과 구현' },
   ]);
+  const [maxId, setMaxId] = useState(3);
 
   const welcome = { title: 'welcome', desc: 'Welcome to react' };
 
@@ -41,7 +42,17 @@ function App() {
     }
     _article = <MyArticle title={_title} desc={_desc} />;
   } else if (mode === 'create') {
-    _article = <CreateArticle />;
+    _article = (
+      <CreateArticle
+        onSubmit={(_title, _desc) => {
+          const newId = maxId + 1;
+
+          let _contents = content.concat({ id: 4, title: 'test1', desc: 'test2' });
+          setContent(_contents);
+          setMaxId(newId);
+        }}
+      />
+    );
   }
 
   return (
