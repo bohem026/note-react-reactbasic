@@ -5,10 +5,10 @@ import MyArticle from './components/MyArticle';
 import { useState, useCallback } from 'react';
 import Controls from './components/controls';
 import CreateArticle from './components/createArticle';
+import UpdateArticle from './components/UpdateArticle';
 
 function App() {
   console.log('App render');
-
   const [id, setId] = useState(1);
   const [mode, setMode] = useState('welcome');
   const [subject, setSubject] = useState({
@@ -17,10 +17,14 @@ function App() {
   });
   const [content, setContent] = useState([
     { id: 1, title: 'UI/UX 개발', desc: '사용자 경험을 고려한 직관적이고 반응성 높은 화면 구현' },
-    { id: 2, title: '재사용이 가능한 UI 개발', desc: '컴포넌트 기반으로 동일한 UI를 효율적으로 재사용 가능' },
+    {
+      id: 2,
+      title: '재사용이 가능한 UI 개발',
+      desc: '컴포넌트 기반으로 동일한 UI를 효율적으로 재사용 가능',
+    },
     { id: 3, title: '애니메이션 구현', desc: '상태 변화에 따른 자연스럽고 동적인 화면 효과 구현' },
   ]);
-  const [maxId, setMaxId] = useState(3);
+  const [maxId, setMaxid] = useState(3);
 
   const welcome = { title: 'welcome', desc: 'Welcome to react' };
 
@@ -35,12 +39,19 @@ function App() {
   } else if (mode === 'read') {
     const selected = content.find((c) => c.id === id);
     console.log(selected);
-
     if (selected) {
       _title = selected.title;
       _desc = selected.desc;
     }
-    _article = <MyArticle title={_title} desc={_desc} />;
+    _article = (
+      <MyArticle
+        title={_title}
+        desc={_desc}
+        onChangeMode={() => {
+          setMode('update');
+        }}
+      />
+    );
   } else if (mode === 'create') {
     _article = (
       <CreateArticle
@@ -49,8 +60,32 @@ function App() {
 
           let _contents = content.concat({ id: newId, title: _title, desc: _desc });
           setContent(_contents);
-          setMaxId(newId);
+          setMaxid(newId);
           setId(newId);
+          setMode('read');
+        }}
+      />
+    );
+  } else if (mode === 'update') {
+    const selected = content.find((c) => c.id === id);
+    console.log(selected);
+    if (!selected) return null;
+
+    _article = (
+      <UpdateArticle
+        title={selected.title}
+        desc={selected.desc}
+        onSubmit={(_title, _desc) => {
+          let _content = content.map((c) =>
+            c.id === id
+              ? {
+                  ...c,
+                  title: _title,
+                  desc: _desc,
+                }
+              : c,
+          );
+          setContent(_content);
           setMode('read');
         }}
       />
@@ -75,7 +110,7 @@ function App() {
         <h1
           className="logo"
           onClick={() => {
-            setMode('welcome');
+            setMode("welcome");
           }}
         >
           {subject.title}
