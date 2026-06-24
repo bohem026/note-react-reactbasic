@@ -47,9 +47,11 @@ function App() {
         onSubmit={(_title, _desc) => {
           const newId = maxId + 1;
 
-          let _contents = content.concat({ id: 4, title: 'test1', desc: 'test2' });
+          let _contents = content.concat({ id: newId, title: _title, desc: _desc });
           setContent(_contents);
           setMaxId(newId);
+          setId(newId);
+          setMode('read');
         }}
       />
     );
