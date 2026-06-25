@@ -4,6 +4,7 @@ function Controls({ onChangeMode }) {
   return (
     <div className="menu">
       <button
+        className="btn btn-primary"
         onClick={() => {
           onChangeMode();
         }}
