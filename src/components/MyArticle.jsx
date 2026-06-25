@@ -1,26 +1,14 @@
-function MyArticle({ title, desc, diff = -1, onChangeMode, onDelete }) {
-  console.log('MyArticle render');
+function MyArticle({ title, desc, level, onChangeMode, onDelete }) {
+  console.log("MyArticle render");
   return (
     <section>
       <article>
         <h2>{title}</h2>
         <p>{desc}</p>
-        {diff !== -1 ? <p>{diff}</p> : <></>}
+        <p>난이도:{level}</p>
       </article>
-      <button
-        onClick={() => {
-          onChangeMode();
-        }}
-      >
-        수정
-      </button>
-      <button
-        onClick={() => {
-          onDelete();
-        }}
-      >
-        삭제
-      </button>
+      {onChangeMode && <button onClick={onChangeMode}>수정</button>}
+      {onDelete && <button onClick={onDelete}>삭제</button>}
     </section>
   );
 }

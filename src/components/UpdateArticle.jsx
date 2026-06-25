@@ -1,40 +1,65 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-function UpdateArticle({ title, desc, diff, onSubmit }) {
-  console.log('UpdateArticle render');
-  const [newTitle, setNewTitle] = useState(title);
-  const [newDesc, setNewDesc] = useState(desc);
-  const [newDiff, setNewDiff] = useState(diff);
-  const handleTitleChange = (e) => {
-    setNewTitle(e.target.value);
+function UpdateArticle({ title, desc, level, onSubmit }) {
+  console.log("UpdateArticle render");
+  const [content, setContent] = useState({
+    title: title,
+    desc: desc,
+    level: level,
+  });
+  // const [newTitle, setNewTitle] = useState(title);
+  // const [newDesc, setNewDesc] = useState(desc);
+
+  // const handleTitleChange = e => {
+  //   setNewTitle(e.target.value);
+  // };
+  // const handleDescChange = e => {
+  //   setNewDesc(e.target.value);
+  // };
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setContent(prev => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
   };
-  const handleDescChange = (e) => {
-    setNewDesc(e.target.value);
-  };
-  const handleDiffChange = (e) => {
-    setNewDiff(e.target.value);
-  };
+
   return (
     <>
       <h2>Update Article</h2>
       <form
         action=""
-        onSubmit={(e) => {
+        onSubmit={e => {
           e.preventDefault();
-          onSubmit(newTitle, newDesc, newDiff);
+          onSubmit(content.title, content.desc, content.level);
         }}
       >
         <div>
           <label htmlFor="title">title</label>
-          <input type="text" name="title" id="title" value={newTitle} onChange={handleTitleChange} />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value={content.title}
+            onChange={handleChange}
+          />
         </div>
         <div>
           <label htmlFor="desc">desc</label>
-          <textarea name="desc" id="desc" value={newDesc} onChange={handleDescChange}></textarea>
+          <textarea name="desc" id="desc" value={content.desc} onChange={handleChange}></textarea>
         </div>
         <div>
-          <label htmlFor="diff">diff</label>
-          <input type="number" name="diff" id="diff" value={newDiff} onChange={handleDiffChange} />
+          <label htmlFor="level">level</label>
+          <input
+            type="number"
+            name="level"
+            id="level"
+            value={content.level}
+            onChange={handleChange}
+          />
         </div>
         <button>Submit</button>
       </form>
