@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function AritcleForm({ initTitle = '', initDesc = '', initLevel = '', onSubmit }) {
+function ArticleForm({ initTitle = '', initDesc = '', initLevel = '', onSubmit }) {
   const [content, setContent] = useState({
     title: initTitle,
     desc: initDesc,
@@ -41,4 +41,5 @@ function AritcleForm({ initTitle = '', initDesc = '', initLevel = '', onSubmit }
     </form>
   );
 }
+
 export default ArticleForm;
